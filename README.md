@@ -104,3 +104,4 @@ Este projeto é licenciado sob a **MIT License**. Consulte o arquivo `LICENSE` p
 ## Autor
 
 Desenvolvido por **Joao Paulo Tot - emailparaojp@gmail.com**.
+Se esse sistema te ajudou, sinta-se a vontade para fazer uma **contribuição via PIX - pixdojp@gmail.com**
