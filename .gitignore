@@ -6,3 +6,5 @@ Certificados_word
 Certificados_word/*
 static
 static/*
+.venv
+__pycache__
