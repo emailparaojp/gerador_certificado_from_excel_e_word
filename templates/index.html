@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Certificados</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #555;
+        }
+        input[type="file"] {
+            padding: 5px;
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+        .message.success {
+            color: green;
+        }
+        .message.error {
+            color: red;
+        }
+        #download-link {
+            display: none;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gerador de Certificados</h1>
+        <form id="upload-form">
+            <label for="excel_file">Upload do Excel:</label>
+            <input type="file" name="excel_file" id="excel_file" required><br>
+            
+            <label for="word_file">Upload do Word:</label>
+            <input type="file" name="word_file" id="word_file" required><br>
+            
+            <button type="submit">Gerar Certificados</button>
+        </form>
+        <div class="message" id="message"></div>
+        <a id="download-link" href="#" target="_blank">Baixar Certificados</a>
+    </div>
+
+    <script>
+        const form = document.getElementById('upload-form');
+        const messageDiv = document.getElementById('message');
+        const downloadLink = document.getElementById('download-link');
+
+        form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    // Mostrar mensagem de processamento
+    messageDiv.textContent = "Gerando certificados, por favor aguarde...";
+    messageDiv.classList.remove('success', 'error');
+    downloadLink.style.display = "none";
+
+    // Preparar os dados do formulário
+    const formData = new FormData(form);
+
+    try {
+        // Enviar os arquivos para o servidor
+        const response = await fetch('/', {
+            method: 'POST',
+            body: formData,
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || "Erro desconhecido ao gerar certificados");
+        }
+
+        // Exibir link para download
+        messageDiv.textContent = "Certificados gerados com sucesso!";
+        messageDiv.classList.add('success');
+        downloadLink.href = data.download_link;
+        downloadLink.style.display = "block";
+        downloadLink.textContent = "Clique aqui para baixar os certificados";
+    } catch (error) {
+        messageDiv.textContent = error.message;
+        messageDiv.classList.add('error');
+    }
+});
+
+    </script>
+</body>
+</html>
