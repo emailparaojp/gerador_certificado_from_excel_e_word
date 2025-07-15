@@ -34,7 +34,7 @@ Este projeto automatiza a geração de certificados personalizados em **Word** e
 Antes de executar o projeto, certifique-se de que as seguintes bibliotecas Python estejam instaladas:
 
 ```bash
-pip install python-docx pandas docx2pdf
+pip install python-docx pandas docx2pdf openpyxl
 ```
 
 ### Requisitos do Sistema
