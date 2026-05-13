@@ -110,7 +110,7 @@ def generate_certificates(template_path, xls_data, output_word_dir, output_pdf_d
                 # Converter para PDF na subpasta da planilha
                 pdf_file_path = os.path.join(sheet_pdf_dir, f"certificado_{sanitized_name}.pdf")
                 convert(word_file_path, pdf_file_path)
-
+                pdf_verso = False
                 # Se existir pdf_verso, anexar suas páginas ao PDF recém-gerado (não alterar o .docx)
                 if pdf_verso and os.path.exists(pdf_verso):
                     try:
